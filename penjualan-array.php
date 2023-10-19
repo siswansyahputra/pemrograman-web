@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    <h1>Aplikasi Pencatatan Penjualan</h1>
     <form action="" method="get">
         input jumlah transaksi : <input type="number" name="jlh_transaksi">
         <input type="submit" value="Proses">
@@ -54,11 +55,9 @@
         </form>
     <?php
     }
-    ?>
-    <hr>
-    <?php
     if (isset($_POST['simpan'])) {
     ?>
+        <hr>
         <h1>Laporan Penjualan</h1>
         <table>
             <tr>

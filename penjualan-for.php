@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjualan</title>
+    <title>Document</title>
     <style>
         table,
         tr,
@@ -12,38 +12,53 @@
         td {
             border-collapse: collapse;
             border: solid 1px;
+            padding: 5px;
         }
     </style>
 </head>
 
 <body>
+    <h1>Aplikasi Pencatatan Penjualan</h1>
     <form action="" method="get">
-        Masukkan jumlah data penjualan : <input type="text" name="jlh_data">
-        <input type="submit" value="Proses" name="proses">
+        input jumlah transaksi : <input type="number" name="jlh_transaksi">
+        <input type="submit" value="Proses">
     </form>
     <hr>
     <?php
-    if (isset($_GET['proses'])) {
-        $jlh_data = $_GET['jlh_data'];
+    if (isset($_GET['jlh_transaksi'])) {
+        $jlh = $_GET['jlh_transaksi'];
     ?>
-        <form action="" method="get">
-            <input type="hidden" name="jlh_data" value="<?= $jlh_data; ?>">
-            <?php
-            for ($i = 1; $i <= $jlh_data; $i++) {
-            ?>
-                Nama produk : <input type="text" name="nama_produk<?= $i; ?>"><br>
-                Harga per produk : <input type="text" name="harga_produk<?= $i; ?>"><br>
-                Harga terjual : <input type="text" name="jlh_jual<?= $i; ?>"><br>
-                <hr>
-            <?php
-            }
-            ?>
-            <input type="submit" value="Simpan" name="simpan">
+        <form action="" method="post">
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Produk</th>
+                    <th>Harga per Produk</th>
+                    <th>Jumlah Terjual</th>
+                </tr>
+                <?php
+                for ($i = 1; $i <= $jlh; $i++) {
+                ?>
+                    <tr>
+                        <td><?= $i; ?></td>
+                        <td><input type="text" name="nama_produk<?= $i; ?>"></td>
+                        <td><input type="text" name="harga_produk<?= $i; ?>"></td>
+                        <td><input type="text" name="jlh_jual<?= $i; ?>"></td>
+                    </tr>
+                <?php
+                }
+                ?>
+                <tr>
+                    <td colspan="4" align="right"><input type="submit" value="Simpan" name="simpan"></td>
+                </tr>
+            </table>
         </form>
     <?php
     }
-    if (isset($_GET['simpan'])) {
+    if (isset($_POST['simpan'])) {
     ?>
+        <hr>
+        <h1>Laporan Penjualan</h1>
         <table>
             <tr>
                 <th>No</th>
@@ -53,21 +68,20 @@
                 <th>Total</th>
             </tr>
             <?php
-            $jlh_data = $_GET['jlh_data'];
             $total_jual = 0;
             $total_semua = 0;
-            for ($i = 1; $i <= $jlh_data; $i++) {
-                $total = $_GET['harga_produk' . $i] * $_GET['jlh_jual' . $i];
+            for ($i = 1; $i <= $jlh; $i++) {
+                $total = $_POST['harga_produk' . $i] * $_POST['jlh_jual' . $i];
             ?>
                 <tr>
                     <td><?= $i; ?></td>
-                    <td><?= $_GET['nama_produk' . $i]; ?></td>
-                    <td><?= $_GET['harga_produk' . $i]; ?></td>
-                    <td><?= $_GET['jlh_jual' . $i]; ?></td>
+                    <td><?= $_POST['nama_produk' . $i]; ?></td>
+                    <td><?= $_POST['harga_produk' . $i]; ?></td>
+                    <td><?= $_POST['jlh_jual' . $i]; ?></td>
                     <td><?= $total; ?></td>
                 </tr>
             <?php
-                $total_jual += $_GET['jlh_jual' . $i];
+                $total_jual += $_POST['jlh_jual' . $i];
                 $total_semua += $total;
             }
             ?>
