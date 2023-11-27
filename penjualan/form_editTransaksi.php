@@ -1,0 +1,39 @@
+<?php
+require_once('koneksi.php');
+$query = "select * from transaksi where id='$_GET[id]'";
+$result = $mysqli->query($query);
+$row = $result->fetch_assoc();
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Penjualan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Form Edit Transaksi</h1>
+        <form method="post" action="proses.php?act=update&id=<?= $_GET['id']; ?>">
+            <div class="mb-3">
+                <label for="nama_produk" class="form-label">Nama Produk</label>
+                <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="<?= $row['nama_produk']; ?>">
+            </div>
+            <div class="mb-3">
+                <label for="harga_produk" class="form-label">Harga per Produk</label>
+                <input type="number" class="form-control" id="harga_produk" name="harga_produk" value="<?= $row['harga_produk']; ?>">
+            </div>
+            <div class="mb-3">
+                <label for="jlh_terjual" class="form-label">Jumlah Terjual</label>
+                <input type="number" class="form-control" id="jlh_terjual" name="jlh_terjual" value="<?= $row['jlh_terjual']; ?>">
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>
